@@ -16,6 +16,7 @@ public class UserRepository(DataContext contexts)
     // UPDATE
 
     // DELETE
+
     public async Task<bool> DeleteAsync(int id)
     {
         var entity = await _contexts.Customers.FirstOrDefaultAsync(x => x.Id == id);
