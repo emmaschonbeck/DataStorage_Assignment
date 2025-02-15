@@ -1,18 +1,11 @@
 ﻿
 
 using Data.Contexts;
+using Data.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repositories;
 
-public class StatusTypeRepository(DataContext contexts)
+public class StatusTypeRepository(DataContext context) : BaseRepository<StatusTypeEntity>(context)
 {
-    private readonly DataContext _contexts = contexts;
-
-    // CREATE
-
-    // READ
-
-    // UPDATE
-
-    // DELETE
 }
