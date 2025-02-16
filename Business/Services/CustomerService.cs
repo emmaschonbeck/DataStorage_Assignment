@@ -11,46 +11,60 @@ public class CustomerService(CustomerRepository customerRepository)
 {
     private readonly CustomerRepository _customerRepository = customerRepository;
 
-
-    public async Task CreateCustomerAsync(CustomerRegistrationForm form)
+    public async Task<bool> CreateCustomerAsync(CustomerRegistrationForm form)
     {
-        var CustomerEntity = CustomerFactory.Create(form);
-        await _customerRepository.AddAsync(CustomerEntity!);
+        var existingCustomer = await _customerRepository.GetAsync(c => c.CustomerName == form.CustomerName);
+        if (existingCustomer != null)
+        {
+            return false; // Kunden finns redan
+        }
 
-        // Lägg in funktionalitet att en användare ej kan skapas om den redan finns.
+        var customerEntity = CustomerFactory.Create(form);
+        await _customerRepository.AddAsync(customerEntity!);
+        return true; // Ny kund skapad
     }
 
     public async Task<Customer?> GetCustomerByIdAsync(int id)
     {
-        var customerEntity = await _customerRepository.GetByIdAsync(id);
+        var customerEntity = await _customerRepository.GetAsync(c => c.Id == id);
         return CustomerFactory.Create(customerEntity!);
-
-        // Klar tror jag
     }
 
     public async Task<IEnumerable<Customer?>> GetAllCustomersAsync()
     {
         var customerEntities = await _customerRepository.GetAsync();
         return customerEntities.Select(CustomerFactory.Create);
-
-        // Klar tror jag
     }
 
     public async Task<Customer?> GetCustomerByCustomerNameAsync(string customerName)
     {
-        var customerEntity = await _customerRepository.GetByCustomerNameAsync(customerName);
-        return CustomerFactory.Create(customerEntity!);
-
-        // Klar tror jag
+        var customerEntity = await _customerRepository.GetAsync(c => c.CustomerName == customerName);
+        return customerEntity != null ? CustomerFactory.Create(customerEntity) : null;
     }
 
     public async Task<bool> UpdateAsync(Customer customer)
     {
+        var existingCustomer = await _customerRepository.GetAsync(c => c.Id == customer.Id);
+        if (existingCustomer == null)
+        {
+            return false;
+        }
 
+        CustomerFactory.UpdateEntity(existingCustomer, customer);
+
+        await _customerRepository.UpdateAsync(existingCustomer);
+        return true;
     }
 
     public async Task<bool> RemoveAsync(int id)
     {
+        var customerEntity = await _customerRepository.GetAsync(c => c.Id == id);
+        if (customerEntity == null)
+        {
+            return false;
+        }
 
+        await _customerRepository.RemoveAsync(customerEntity);
+        return true;
     }
 }

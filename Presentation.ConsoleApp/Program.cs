@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Presentation.ConsoleApp;
 
-var services = new ServiceCollection();
+var services = new ServiceCollection()
     .AddDbContext<DataContext>(x => x.UseSqlServer())
     .AddScoped<CustomerRepository>()
     .AddScoped<ProductRepository>()

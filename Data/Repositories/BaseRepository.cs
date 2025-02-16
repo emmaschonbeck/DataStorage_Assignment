@@ -27,19 +27,19 @@ public abstract class BaseRepository<TEntity>(DataContext context) where TEntity
         return entity;
     }
 
-    public async Task<TEntity?> GetByIdAsync(int id)
-    {
-        var entity = await _db.FirstOrDefaultAsync(e => e.Id == id);
-        return entity;
-    }
+    //public async Task<TEntity?> GetByIdAsync(int id)
+    //{
+    //    var entity = await _db.FirstOrDefaultAsync(e => e.Id == id);
+    //    return entity;
+    //}
 
-    // ????????
+    //// ????????
 
-    public async Task<TEntity?> GetByCustomerNameAsync(string customerName)
-    {
-        var entity = await _db.FirstOrDefaultAsync(e => e.CustomerName == customerName);
-        return entity;
-    }
+    //public async Task<TEntity?> GetByCustomerNameAsync(string customerName)
+    //{
+    //    var entity = await _db.FirstOrDefaultAsync(e => e.CustomerName == customerName);
+    //    return entity;
+    //}
 
     public async Task UpdateAsync(TEntity entity)
     {

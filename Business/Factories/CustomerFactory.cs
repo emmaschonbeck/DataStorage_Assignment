@@ -17,4 +17,21 @@ public static class CustomerFactory
         Id = entity.Id,
         CustomerName = entity.CustomerName,
     };
+
+    public static CustomerEntity? Create(Customer customer, CustomerEntity existingEntity)
+    {
+        if (customer == null || existingEntity == null)
+            return null;
+
+        existingEntity.CustomerName = customer.CustomerName;
+        return existingEntity;
+    } // Chatgpt
+
+    public static void UpdateEntity(CustomerEntity entity, Customer customer)
+    {
+        if (entity == null || customer == null)
+            return;
+
+        entity.CustomerName = customer.CustomerName;
+    }
 }
