@@ -1,11 +1,11 @@
 ﻿
 
-using Data.Contexts;
-using Data.Entities;
-using Microsoft.EntityFrameworkCore;
+//using Data.Contexts;
+//using Data.Entities;
+//using Microsoft.EntityFrameworkCore;
 
-namespace Data.Repositories;
+//namespace Data.Repositories;
 
-public class UserRepository(DataContext context) : BaseRepository<UserEntity>(context)
-{
-}
+//public class UserRepository(DataContext context) : BaseRepository<UserEntity>(context)
+//{
+//}

@@ -16,12 +16,12 @@ public class CustomerService(CustomerRepository customerRepository)
         var existingCustomer = await _customerRepository.GetAsync(c => c.CustomerName == form.CustomerName);
         if (existingCustomer != null)
         {
-            return false; // Kunden finns redan
+            return false;
         }
 
         var customerEntity = CustomerFactory.Create(form);
         await _customerRepository.AddAsync(customerEntity!);
-        return true; // Ny kund skapad
+        return true;
     }
 
     public async Task<Customer?> GetCustomerByIdAsync(int id)

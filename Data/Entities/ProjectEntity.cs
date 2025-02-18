@@ -9,6 +9,11 @@ public class ProjectEntity
 {
     [Key]
     public int Id { get; set; }
+
+    [Required]
+    public string ProjectNumber { get; set; } = null!;
+
+    [Required]
     public string Title { get; set; } = null!;
     public string? Description { get; set; }
 
@@ -25,9 +30,10 @@ public class ProjectEntity
     public int StatusId { get; set; }
     public StatusTypeEntity Status { get; set; } = null!;
 
-    public int UserId { get; set; }
-    public UserEntity User { get; set; } = null!;
+    public ProjectEntity(string projectNumber)
+    {
+        ProjectNumber = projectNumber;
+    }
 
-    public int ProductId { get; set; }
-    public ProductEntity Product { get; set; } = null!;
+    public ProjectEntity() { }
 }
