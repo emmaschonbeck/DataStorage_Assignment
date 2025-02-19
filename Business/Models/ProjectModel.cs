@@ -16,4 +16,9 @@ public class ProjectModel
 
     [Column(TypeName = "date")]
     public DateTime EndDate { get; set; }
+
+    public int CustomerId { get; set; }
+
+    [ForeignKey("CustomerId")]
+    public Customer Customer { get; set; } = null!;
 }

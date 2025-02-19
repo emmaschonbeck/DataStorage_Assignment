@@ -27,9 +27,6 @@ public class ProjectEntity
     public int CustomerId { get; set; }
     public CustomerEntity Customer { get; set; } = null!;
 
-    public int StatusId { get; set; }
-    public StatusTypeEntity Status { get; set; } = null!;
-
     public ProjectEntity(string projectNumber)
     {
         ProjectNumber = projectNumber;

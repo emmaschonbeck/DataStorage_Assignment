@@ -1,8 +1,8 @@
 ﻿
 
-namespace Business.Services;
+//namespace Business.Services;
 
-public class StatusTypeService
-{
+//public class StatusTypeService
+//{
 
-}
+//}

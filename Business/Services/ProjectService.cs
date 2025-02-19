@@ -17,18 +17,15 @@ public class ProjectService(ProjectRepository projectRepository)
             return false;
         }
 
-        // Generera ProjectNumber
         var projectNumber = await GenerateProjectNumber();
 
-        // Använd den parameteriserade konstruktorn för att skapa ett nytt ProjectEntity
         var projectEntity = new ProjectEntity(projectNumber)
         {
             Title = form.Title,
             Description = form.Description,
             StartDate = form.StartDate,
             EndDate = form.EndDate,
-            CustomerId = form.CustomerId,
-            StatusId = form.StatusId
+            CustomerId = form.CustomerId
         };
 
         await _projectRepository.AddAsync(projectEntity);
@@ -40,7 +37,6 @@ public class ProjectService(ProjectRepository projectRepository)
         var projectEntity = await _projectRepository.GetAsync(p => p.Id == id);
         if (projectEntity == null) return null;
 
-        // Visa ProjectNumber (inte ändra det)
         Console.WriteLine($"Project Number: {projectEntity.ProjectNumber}");
 
         return ProjectFactory.Create(projectEntity);
