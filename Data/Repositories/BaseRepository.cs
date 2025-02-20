@@ -32,6 +32,7 @@ public abstract class BaseRepository<TEntity>(DataContext context) where TEntity
         return entity;
     }
 
+
     //public async Task<TEntity?> GetByIdAsync(int id)
     //{
     //    var entity = await _db.FirstOrDefaultAsync(e => e.Id == id);
@@ -54,6 +55,8 @@ public abstract class BaseRepository<TEntity>(DataContext context) where TEntity
 
     public async Task RemoveAsync(TEntity entity)
     {
+        _db.Remove(entity);
         await _context.SaveChangesAsync();
     }
+
 }

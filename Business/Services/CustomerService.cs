@@ -56,15 +56,15 @@ public class CustomerService(CustomerRepository customerRepository)
         return true;
     }
 
-    public async Task<bool> RemoveAsync(int id)
+    public async Task<bool> RemoveAsync(int customerId) // Ändra till int
     {
-        var customerEntity = await _customerRepository.GetAsync(c => c.Id == id);
+        var customerEntity = await _customerRepository.GetAsync(c => c.Id == customerId); // Kontrollera att 'Id' är av typen int
         if (customerEntity == null)
         {
-            return false;
+            return false; // Kunden hittades inte
         }
 
         await _customerRepository.RemoveAsync(customerEntity);
-        return true;
+        return true; // Kunden raderades framgångsrikt
     }
 }

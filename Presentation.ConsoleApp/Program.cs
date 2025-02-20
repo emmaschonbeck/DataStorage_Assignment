@@ -14,10 +14,12 @@ var services = new ServiceCollection()
     .AddScoped<CustomerService>()
     .AddScoped<ProjectService>()
 
-    .AddScoped<MenuDialogs>()
+    .AddScoped<MainMenu>()
+    .AddScoped<ProjectMenu>()
+    .AddScoped<CustomerMenu>()
 
     .BuildServiceProvider();
 
-var menuDialogs = services.GetRequiredService<MenuDialogs>();
-await menuDialogs.MenuOptions();
+var mainMenu = services.GetRequiredService<MainMenu>();
+await mainMenu.ShowMenuAsync();
     
