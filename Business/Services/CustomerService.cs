@@ -42,29 +42,37 @@ public class CustomerService(CustomerRepository customerRepository)
         return customerEntity != null ? CustomerFactory.Create(customerEntity) : null;
     }
 
-    public async Task<bool> UpdateAsync(Customer customer)
+    public async Task<bool> UpdateCustomerNameAsync(int customerId, string newCustomerName)
     {
-        var existingCustomer = await _customerRepository.GetAsync(c => c.Id == customer.Id);
+        var existingCustomer = await _customerRepository.GetAsync(c => c.Id == customerId);
         if (existingCustomer == null)
         {
+            Console.WriteLine($"Customer with ID {customerId} not found.");
             return false;
         }
 
-        CustomerFactory.UpdateEntity(existingCustomer, customer);
+        Console.WriteLine("Current customer details:");
+        Console.WriteLine($"ID: {existingCustomer.Id}");
+        Console.WriteLine($"Name: {existingCustomer.CustomerName}");
+
+        if (!string.IsNullOrWhiteSpace(newCustomerName))
+        {
+            existingCustomer.CustomerName = newCustomerName;
+        }
 
         await _customerRepository.UpdateAsync(existingCustomer);
         return true;
     }
 
-    public async Task<bool> RemoveAsync(int customerId) // Ändra till int
+    public async Task<bool> RemoveAsync(int customerId)
     {
-        var customerEntity = await _customerRepository.GetAsync(c => c.Id == customerId); // Kontrollera att 'Id' är av typen int
+        var customerEntity = await _customerRepository.GetAsync(c => c.Id == customerId);
         if (customerEntity == null)
         {
-            return false; // Kunden hittades inte
+            return false;
         }
 
         await _customerRepository.RemoveAsync(customerEntity);
-        return true; // Kunden raderades framgångsrikt
+        return true;
     }
 }

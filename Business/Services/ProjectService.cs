@@ -2,6 +2,7 @@
 using Business.Models;
 using Data.Entities;
 using Data.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Business.Services;
 
@@ -45,9 +46,10 @@ public class ProjectService(ProjectRepository projectRepository)
 
     public async Task<IEnumerable<ProjectModel>> GetAllProjectsAsync()
     {
-        var projectEntities = await _projectRepository.GetAsync();
+        var projectEntities = await _projectRepository.GetAsync(include: q => q.Include(p => p.Customer));
         return projectEntities.Select(ProjectFactory.Create);
     }
+
 
 
     public async Task<bool> UpdateAsync(string projectNumber)

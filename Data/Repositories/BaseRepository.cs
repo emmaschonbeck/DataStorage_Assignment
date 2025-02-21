@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using Data.Contexts;
+using Data.Entities;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace Data.Repositories;
 
@@ -20,11 +22,21 @@ public abstract class BaseRepository<TEntity>(DataContext context) where TEntity
         await _context.SaveChangesAsync();
     }
 
-    public async Task<IEnumerable<TEntity>>GetAsync()
+    public async Task<IEnumerable<TEntity>> GetAsync(
+    Expression<Func<TEntity, bool>>? predicate = null,
+    Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null)
     {
-        var entities = await _db.ToListAsync();
-        return entities;
+        IQueryable<TEntity> query = _context.Set<TEntity>();
+
+        if (include != null)
+            query = include(query);
+
+        if (predicate != null)
+            query = query.Where(predicate);
+
+        return await query.ToListAsync();
     }
+
 
     public async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> expression)
     {
@@ -32,20 +44,11 @@ public abstract class BaseRepository<TEntity>(DataContext context) where TEntity
         return entity;
     }
 
+    public async Task<TEntity?> GetByIdAsync(int id)
+    {
+        return await _db.FindAsync(id);
+    }
 
-    //public async Task<TEntity?> GetByIdAsync(int id)
-    //{
-    //    var entity = await _db.FirstOrDefaultAsync(e => e.Id == id);
-    //    return entity;
-    //}
-
-    //// ????????
-
-    //public async Task<TEntity?> GetByCustomerNameAsync(string customerName)
-    //{
-    //    var entity = await _db.FirstOrDefaultAsync(e => e.CustomerName == customerName);
-    //    return entity;
-    //}
 
     public async Task UpdateAsync(TEntity entity)
     {

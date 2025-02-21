@@ -1,17 +1,14 @@
-﻿using System;
-using System.Threading.Tasks;
-using Business.Models;
-using Business.Services;
+﻿using Business.Services;
 
 namespace Presentation.ConsoleApp;
 
 public class CustomerMenu : IMenu
 {
-    private readonly CustomerService _customerService;
+    private readonly CustomerActions _customerActions;
 
-    public CustomerMenu(CustomerService customerService)
+    public CustomerMenu(CustomerActions customerActions)
     {
-        _customerService = customerService;
+        _customerActions = customerActions;
     }
 
     public async Task ShowMenuAsync()
@@ -27,8 +24,9 @@ public class CustomerMenu : IMenu
             Console.WriteLine("Manage Customers:");
             Console.WriteLine("1. Create Customer");
             Console.WriteLine("2. List Customers");
-            Console.WriteLine("3. Delete Customers");
-            Console.WriteLine("4. Return to Main Menu");
+            Console.WriteLine("3. Update Customers");
+            Console.WriteLine("4. Delete Customers");
+            Console.WriteLine("5. Return to Main Menu");
             Console.Write("Select an option: ");
 
             var option = Console.ReadLine();
@@ -36,18 +34,22 @@ public class CustomerMenu : IMenu
             switch (option)
             {
                 case "1":
-                    await CreateNewCustomer();
+                    await _customerActions.CreateNewCustomer();
                     break;
 
                 case "2":
-                    await GetAllCustomers();
+                    await _customerActions.GetAllCustomers();
                     break;
 
                 case "3":
-                    await DeleteCustomer();
+                    await _customerActions.UpdateCustomer();
                     break;
 
                 case "4":
+                    await _customerActions.DeleteCustomer();
+                    break;
+
+                case "5":
                     return;
 
                 default:
@@ -55,46 +57,5 @@ public class CustomerMenu : IMenu
                     break;
             }
         }
-    }
-
-    private async Task CreateNewCustomer()
-    {
-        Console.Write("Enter customer name: ");
-        var name = Console.ReadLine();
-
-        var customerForm = new CustomerRegistrationForm { CustomerName = name };
-        var result = await _customerService.CreateCustomerAsync(customerForm);
-        Console.WriteLine(result ? "Customer created successfully!" : "Customer creation failed.");
-
-        Console.WriteLine("Press any key to return to the Customer Menu");
-        Console.ReadKey();
-    }
-
-    private async Task GetAllCustomers()
-    {
-        var customers = await _customerService.GetAllCustomersAsync();
-        foreach (var customer in customers)
-        {
-            Console.WriteLine($"ID: {customer.Id}, Name: {customer.CustomerName}");
-        }
-        Console.WriteLine("Press any key to return to the Customer Menu");
-        Console.ReadKey();
-    }
-
-    private async Task DeleteCustomer()
-    {
-        Console.Write("Enter customer ID to delete: ");
-        if (int.TryParse(Console.ReadLine(), out int customerId))
-        {
-            var result = await _customerService.RemoveAsync(customerId);
-            Console.WriteLine(result ? "Customer deleted successfully!" : "Customer deletion failed.");
-        }
-        else
-        {
-            Console.WriteLine("Invalid customer ID format. Please enter a valid ID.");
-        }
-
-        Console.WriteLine("Press any key to go back to the Customer Menu");
-        Console.ReadKey();
     }
 }

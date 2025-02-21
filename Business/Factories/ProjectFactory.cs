@@ -29,7 +29,13 @@ public class ProjectFactory
             Title = entity.Title,
             Description = entity.Description,
             StartDate = entity.StartDate,
-            EndDate = entity.EndDate
+            EndDate = entity.EndDate,
+            CustomerId = entity.CustomerId,
+            Customer = entity.Customer != null ? new Customer
+            {
+                Id = entity.Customer.Id,
+                CustomerName = entity.Customer.CustomerName
+            } : null
         };
     }
 
