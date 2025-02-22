@@ -20,7 +20,7 @@ public class ProjectActions
     {
         var customers = await _customerService.GetAllCustomersAsync();
 
-        Console.WriteLine("Select a customer:");
+        Console.WriteLine("\nSelect a customer:");
         var customerList = customers.ToList();
         for (int i = 0; i < customerList.Count; i++)
         {
@@ -71,17 +71,14 @@ public class ProjectActions
         };
 
         var result = await _projectService.CreateProjectAsync(projectForm);
-        Console.WriteLine(result ? "Project created successfully!" : "Project creation failed.");
-
-        Console.WriteLine("Press any key to return to the Project Menu");
-        Console.ReadKey();
+        Console.WriteLine(result ? "\nProject created successfully!" : "\nProject creation failed.");
     }
 
     public async Task GetAllProjects()
     {
         var projects = await _projectService.GetAllProjectsAsync();
         Console.Clear();
-        Console.WriteLine("List of Projects:\n");
+        Console.WriteLine("==== List of Projects: ====\n");
 
         foreach (var project in projects)
         {
@@ -93,22 +90,22 @@ public class ProjectActions
             Console.WriteLine($"End Date: {project.EndDate:yyyy-MM-dd}");
             Console.WriteLine($"Customer: {project.Customer?.CustomerName}");
             Console.WriteLine(new string('-', 40));
-        }
 
-        Console.WriteLine("Press any key to return to the Project Menu");
-        Console.ReadKey();
+            Console.ReadKey();
+        }
     }
 
 
     public async Task UpdateProject()
     {
-        Console.Write("Enter project ID to update (e.g., p-102): ");
+        Console.Write("\nEnter project ID to update (e.g.: p-102): ");
         var input = Console.ReadLine();
+        Console.WriteLine("");
 
         if (!string.IsNullOrEmpty(input) && input.StartsWith("p-"))
         {
             var result = await _projectService.UpdateAsync(input);
-            Console.WriteLine(result ? "Project updated successfully!" : "Project update failed.");
+            Console.WriteLine(result ? "\nProject updated successfully!" : "Project update failed.");
         }
         else
         {
@@ -121,20 +118,17 @@ public class ProjectActions
 
     public async Task DeleteProject()
     {
-        Console.Write("Enter project ID to delete (e.g., p-101): ");
+        Console.Write("\nEnter project ID to delete (e.g.: p-101): ");
         var input = Console.ReadLine();
 
         if (!string.IsNullOrEmpty(input) && input.StartsWith("p-"))
         {
             var result = await _projectService.RemoveAsync(input);
-            Console.WriteLine(result ? "Project deleted successfully!" : "Project deletion failed.");
+            Console.WriteLine(result ? "\nProject was deleted successfully!" : "\nProject deletion failed.");
         }
         else
         {
-            Console.WriteLine("Invalid project ID format. Please enter a valid ID (e.g., p-101).");
+            Console.WriteLine("\nInvalid project ID format. Please enter a valid ID (e.g.: p-101).");
         }
-
-        Console.WriteLine("Press any key to return to the Project Menu");
-        Console.ReadKey();
     }
 }

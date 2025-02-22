@@ -72,7 +72,7 @@ public class ProjectService(ProjectRepository projectRepository)
         Console.WriteLine($"Start Date: {originalStartDate:yyyy-MM-dd}");
         Console.WriteLine($"End Date: {originalEndDate:yyyy-MM-dd}");
 
-        Console.Write("Enter new project title (required, leave blank to keep current): ");
+        Console.Write("\nEnter new project title (required, leave blank to keep current): ");
         var newTitle = Console.ReadLine();
         if (string.IsNullOrWhiteSpace(newTitle))
         {
@@ -102,7 +102,7 @@ public class ProjectService(ProjectRepository projectRepository)
             newEndDate = parsedEndDate;
         }
 
-        Console.WriteLine("Do you want to save these changes? (y/n)");
+        Console.WriteLine("\nDo you want to save these changes? (y/n)");
         var confirm = Console.ReadLine();
         if (confirm?.ToLower() == "y")
         {
@@ -113,12 +113,11 @@ public class ProjectService(ProjectRepository projectRepository)
             projectEntity.EndDate = newEndDate;
 
             await _projectRepository.UpdateAsync(projectEntity);
-            Console.WriteLine("Project updated successfully!");
             return true;
         }
         else
         {
-            Console.WriteLine("Changes were discarded.");
+            Console.WriteLine("\nChanges were discarded.");
             return false;
         }
     }
@@ -137,7 +136,6 @@ public class ProjectService(ProjectRepository projectRepository)
         }
 
         await _projectRepository.RemoveAsync(projectEntity);
-        Console.WriteLine($"Project with Project Number {projectNumber} has been removed from the repository.");
         return true;
     }
 

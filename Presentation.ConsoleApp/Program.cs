@@ -14,9 +14,14 @@ var services = new ServiceCollection()
     .AddScoped<CustomerService>()
     .AddScoped<ProjectService>()
 
+    .AddScoped<ProjectActions>()
+    .AddScoped<CustomerActions>()
+
     .AddScoped<MainMenu>()
     .AddScoped<ProjectMenu>()
     .AddScoped<CustomerMenu>()
+    
+
 
     .BuildServiceProvider();
 
