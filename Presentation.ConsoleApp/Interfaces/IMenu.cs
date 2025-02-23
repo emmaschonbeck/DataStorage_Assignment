@@ -1,6 +1,4 @@
-﻿
-
-namespace Presentation.ConsoleApp;
+﻿namespace Presentation.ConsoleApp.Interfaces;
 
 public interface IMenu
 {

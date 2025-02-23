@@ -18,6 +18,12 @@ public static class CustomerFactory
         CustomerName = entity.CustomerName,
     };
 
+    /*
+       Denna koden är genererad av ChatGPT - Koden definerar en metod som heter Create, den tar emot två parametrar, en Customer-instans och en befintlig
+       CustomerEntity. Först kollar metoden ifall antingen Customer eller CustomerEntity är null, och ifall någon av dem är null, så returnerar metoden null.
+       Ifall båda parametrarna är glitiga så uppdateras egenskapen CustomerName i existingEntity med värdet från Customer. Och till sist så returnerar metoden
+       den uppdaterade existingEntity.
+    */
     public static CustomerEntity? Create(Customer customer, CustomerEntity existingEntity)
     {
         if (customer == null || existingEntity == null)
@@ -25,7 +31,7 @@ public static class CustomerFactory
 
         existingEntity.CustomerName = customer.CustomerName;
         return existingEntity;
-    } // Chatgpt
+    }
 
     public static void UpdateEntity(CustomerEntity entity, Customer customer)
     {

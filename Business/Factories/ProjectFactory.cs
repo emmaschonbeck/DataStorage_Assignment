@@ -20,6 +20,11 @@ public class ProjectFactory
         };
     }
 
+    /*
+       Denna koden är genererad av ChatGPT - Nedan metod gör en omvandling från en databaspost, från ProjectEntity,till en användbar modell, i ProjectModel, så att
+       vi kan arbeta med den i vår app. Genom att extrahera och mappa alla dessa egenskaper, får vi en mer strukturerad och anpassad representation av projektdata.
+       Metoden hanterar även vår kundinformation, detta gör det möjligt att på ett enkelt sätt associera varje projekt med dess tillhörande kund.
+    */
     public static ProjectModel Create(ProjectEntity entity)
     {
         return new ProjectModel

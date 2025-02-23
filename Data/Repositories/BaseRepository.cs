@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using Data.Contexts;
-using Data.Entities;
 using Microsoft.EntityFrameworkCore.Query;
 
 namespace Data.Repositories;

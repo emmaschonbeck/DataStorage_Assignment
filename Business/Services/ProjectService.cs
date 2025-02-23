@@ -141,11 +141,13 @@ public class ProjectService(ProjectRepository projectRepository)
 
 
 
-
+    /* Denna koden är genererad av ChatGPT - Metoden nedan genererar ett unikt projektnummer baserat på redan befintliga projekt i databasen,
+       Detta säkerställer att alla projekt får ett unik projektnummer och att numret följer ett visst format (tex p-101).
+    */
     private async Task<string> GenerateProjectNumber()
     {
         var projectCount = await _projectRepository.CountAsync();
-        return $"P-{100 + projectCount + 1}"; // Ex: P-101, P-102 osv.
+        return $"P-{100 + projectCount + 1}";
     }
 }
 

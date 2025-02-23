@@ -2,7 +2,6 @@
 
 using Business.Factories;
 using Business.Models;
-using Data.Entities;
 using Data.Repositories;
 
 namespace Business.Services;
@@ -50,10 +49,6 @@ public class CustomerService(CustomerRepository customerRepository)
             Console.WriteLine($"Customer with ID {customerId} not found.");
             return false;
         }
-
-        Console.WriteLine("Current customer details:");
-        Console.WriteLine($"ID: {existingCustomer.Id}");
-        Console.WriteLine($"Name: {existingCustomer.CustomerName}");
 
         if (!string.IsNullOrWhiteSpace(newCustomerName))
         {

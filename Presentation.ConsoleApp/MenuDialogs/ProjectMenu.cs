@@ -1,7 +1,8 @@
-﻿using Business.Models;
-using Business.Services;
+﻿
+using Presentation.ConsoleApp.Interfaces;
+using Presentation.ConsoleApp.MenuActions;
 
-namespace Presentation.ConsoleApp;
+namespace Presentation.ConsoleApp.MenuDialogs;
 
 public class ProjectMenu : IMenu
 {

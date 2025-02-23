@@ -1,9 +1,7 @@
 ﻿
-using System;
-using Business.Models;
-using Business.Services;
+using Presentation.ConsoleApp.Interfaces;
 
-namespace Presentation.ConsoleApp;
+namespace Presentation.ConsoleApp.MenuDialogs;
 
 public class MainMenu : IMenu
 {
@@ -56,5 +54,3 @@ public class MainMenu : IMenu
     }
 
 }
-
-// fortsätta lägga in alla dialoger osv, som vi gjorde i c# kursen.
